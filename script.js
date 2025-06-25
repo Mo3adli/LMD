@@ -476,18 +476,14 @@ document.addEventListener('DOMContentLoaded', () => {
             const statementElement = get('#statement-content');
             const title = 'Statement_of_Marks';
             
-            // Hide buttons so they are not in the screenshot
             const buttons = statementElement.querySelectorAll('.action-btn, .btn-close-modal');
             buttons.forEach(btn => btn.style.visibility = 'hidden');
 
-            // The watermark is now part of the HTML, so html2canvas will capture it automatically.
             html2canvas(statementElement, {
                 backgroundColor: getComputedStyle(document.documentElement).getPropertyValue('--surface-color').trim(),
                 useCORS: true,
                 scale: 2,
-                foreignObjectRendering: true,
             }).then(canvas => {
-                // Make buttons visible again after screenshot
                 buttons.forEach(btn => btn.style.visibility = 'visible');
                 
                 const link = document.createElement('a');
@@ -496,7 +492,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 link.click();
             }).catch(err => {
                 console.error("Oops, something went wrong!", err);
-                // Make sure buttons are visible again even if there is an error
                 buttons.forEach(btn => btn.style.visibility = 'visible');
             });
         });
